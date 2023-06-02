@@ -1,6 +1,6 @@
 <div align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
   <h1>The Cairo Programming Language Book</h1>
   <h3> Alexandria </h3>
@@ -67,18 +67,17 @@ The translation work is inspired from [Comprehensive Rust repository](https://gi
 
 ### Work locally (Cairo programs verification)
 
-The current book has a mdbook backend to extract Cairo programs from the markdown sources.
-To run this locally, and test if a Cairo program you have written in the book actually compiled.
+The current book has a mdbook backend to extract Cairo programs from the markdown sources. Currently, for each program it test two things: if it compiles and if it adheres to the `cairo-format` coding style. You can run this locally and test if a Cairo program you have written in the book passes these tests.
 
 The mdbook-cairo backend is working as following:
 
 1. It takes every code blocks in the markdown source and parse all of them.
 2. Code blocks with a main function `fn main()` are extracted into Cairo programs.
-3. The extracted programs are nammed based on the chapter they belong to, and a consecutive
+3. The extracted programs are named based on the chapter they belong to, and a consecutive
    number of the `fn main()` found in the chapter.
-4. If you have a code block with a `fn main()` function, but you know that is does not compile,
-   you can add an attribute to the code block tag value as following:
-
+4. If you have a code block with a `fn main()` function that you know does not compile,
+   you can indicate it by adding the `does_not_compile` attribute to the code block, like this:
+   
    ````
    ```rust,does_not_compile
    fn main() {
@@ -89,8 +88,17 @@ The mdbook-cairo backend is working as following:
    This main function will still count in the consecutive number of `fn main()` in the chapter file,
    but will not be extracted into a Cairo program.
 
-To run the CI locally, ensure that you are at the root of the repository (same directoy of this `README.md` file),
-and run:
+5. Alternatively, if you want to disable the format check using `cairo-format`,
+   you can add the `ignore_format` attribute to the code block, like this:   
+
+   ````
+   ```rust,ignore_format
+   fn main() {
+   }
+   ```
+   ````
+
+To run the CI locally, ensure that you are at the root of the repository (same directory of this `README.md` file), and run:
 
 `bash mdbook-cairo/scripts/cairo_local_verify.sh`
 
@@ -109,6 +117,9 @@ and run:
       <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/clementwalter/"><img src="https://avatars.githubusercontent.com/u/18620296?v=4?s=100" width="100px;" alt="Clément Walter"/><br /><sub><b>Clément Walter</b></sub></a><br /><a href="https://github.com/cairo-book/cairo-book.github.io/pulls?q=is%3Apr+reviewed-by%3AClementWalter" title="Reviewed Pull Requests">👀</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/makluganteng"><img src="https://avatars.githubusercontent.com/u/74396818?v=4?s=100" width="100px;" alt="V.O.T"/><br /><sub><b>V.O.T</b></sub></a><br /><a href="https://github.com/cairo-book/cairo-book.github.io/commits?author=makluganteng" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/rkdud007"><img src="https://avatars.githubusercontent.com/u/76558220?v=4?s=100" width="100px;" alt="Pia"/><br /><sub><b>Pia</b></sub></a><br /><a href="https://github.com/cairo-book/cairo-book.github.io/commits?author=rkdud007" title="Code">💻</a> <a href="#blog-rkdud007" title="Blogposts">📝</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/cryptonerdcn"><img src="https://avatars.githubusercontent.com/u/97042744?v=4?s=100" width="100px;" alt="cryptonerdcn"/><br /><sub><b>cryptonerdcn</b></sub></a><br /><a href="#translation-cryptonerdcn" title="Translation">🌍</a></td>
     </tr>
   </tbody>
 </table>

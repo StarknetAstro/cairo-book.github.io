@@ -10,9 +10,9 @@ when many types are possible, we can use a cast method where we specify the desi
 ```Rust
 use traits::TryInto;
 use option::OptionTrait;
-fn main(){
+fn main() {
     let x: felt252 = 3;
-    let y:u32 = x.try_into().unwrap();
+    let y: u32 = x.try_into().unwrap();
 }
 ```
 
@@ -96,7 +96,7 @@ how you’d use each numeric operation in a `let` statement:
 
 ```rust
 fn main() {
-     // addition
+    // addition
     let sum = 5_u128 + 10_u128;
 
     // subtraction
@@ -117,8 +117,7 @@ fn main() {
 Each expression in these statements uses a mathematical operator and evaluates
 to a single value, which is then bound to a variable.
 
-<!-- TODO: Appendix operator -->
-<!-- [Appendix B][appendix_b] ignore contains a list of all operators that Cairo provides. -->
+[Appendix B][appendix_b] contains a list of all operators that Cairo provides.
 
 #### The Boolean Type
 
@@ -133,8 +132,6 @@ fn main() {
     let f: bool = false; // with explicit type annotation
 }
 ```
-
-[//]: # "TODO: control flow section"
 
 The main way to use Boolean values is through conditionals, such as an `if`
 expression. We’ll cover how `if` expressions work in Cairo in the [“Control
@@ -160,12 +157,12 @@ On the other hand, the `into` method can be used for type casting when success i
 
 To perform the conversion, call `var.into()` or `var.try_into()` on the source value to cast it to another type. The new variable's type must be explicitly defined, as demonstrated in the example below.
 
-```rust
+```rust,ignore_format
 use traits::TryInto;
 use traits::Into;
 use option::OptionTrait;
 
-fn main(){
+fn main() {
     let my_felt = 10;
     let my_u8: u8 = my_felt.try_into().unwrap(); // Since a felt252 might not fit in a u8, we need to unwrap the Option<T> type
     let my_u16: u16 = my_felt.try_into().unwrap();
@@ -192,7 +189,7 @@ type annotations in this example:
 
 ```rust
 fn main() {
-    let tup: (u32,u64,bool) = (10,20,true);
+    let tup: (u32, u64, bool) = (10, 20, true);
 }
 ```
 
@@ -235,3 +232,4 @@ It is represented by a tuple with no elements.
 Its size is always zero, and it is guaranteed to not exist in the compiled code.
 
 [control-flow]: ch02-05-control-flow.md
+[appendix_b]: appendix-02-operators-and-symbols.md#operators
