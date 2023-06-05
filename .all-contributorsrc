@@ -95,6 +95,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "StarknetAstro",
+      "name": "Starknet Astro",
+      "avatar_url": "https://avatars.githubusercontent.com/u/132659385?v=4",
+      "profile": "https://starknet-astro.super.site/",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -103,5 +112,5 @@
   "repoHost": "https://github.com",
   "badgeTemplate": "[![All Contributors](https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square)](#contributors)",
   "projectName": "cairo-book.github.io",
-  "projectOwner": "cairo-book"
+  "projectOwner": "StarknetAstro"
 }
