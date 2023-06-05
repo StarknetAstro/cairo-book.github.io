@@ -95,6 +95,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "Yuanxingzhu",
+      "name": "maxlion",
+      "avatar_url": "https://avatars.githubusercontent.com/u/71621479?v=4",
+      "profile": "https://github.com/Yuanxingzhu",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -102,5 +111,5 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "projectName": "cairo-book.github.io",
-  "projectOwner": "cairo-book"
+  "projectOwner": "StarknetAstro"
 }
