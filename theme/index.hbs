@@ -130,6 +130,48 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
+                        <button id="version-toggle" class="icon-button" type="button" 
+                        title="Change version" aria-label="Change version" aria-haspopup="true" 
+                        aria-expanded="false" aria-controls="version-list">
+                            <i class="fa fa-tag"></i>
+                        </button>
+                        <ul id="version-list" class="theme-popup" aria-label="Versions" role="menu">
+                            <li role="none"><button role="menuitem" class="theme">
+                                <a id="v1">Cairo 1.1</a>
+                            </button></li>
+                            <li role="none"><button role="menuitem" class="theme">
+                                <a id="v2">Cairo 2.0</a>
+                            </button></li>
+                        </ul>
+                        <script>
+                            let verToggle = document.getElementById("version-toggle");
+                            let verList = document.getElementById("version-list");
+                            verToggle.addEventListener("click", (event) => {
+                                verList.style.display = verList.style.display == "block" ? "none" : "block";
+                            });
+                            let selectedVer = document.getElementById("{{ description }}");
+                            selectedVer.parentNode.classList.add("theme-selected");
+
+                            // The path to the root, taking the current
+                            // language into account.
+                            {{#if (eq language "en")}}
+                            let full_path_to_root_ver = "{{ path_to_root }}";
+                            {{else}}
+                            let full_path_to_root_ver = "{{ path_to_root }}../";
+                            {{/if}}
+                            // The page path (mdbook only gives us
+                            // access to the path to the Markdown file).
+                            let verPath = "{{ path }}".replace(/\.md$/, ".html");
+                            for (let ver of verList.querySelectorAll("a")) {
+                                if (ver.id == "v2") {
+                                    ver.href = `${full_path_to_root_ver}${verPath}`;
+                                } else {
+                                    ver.href = `${full_path_to_root_ver}${ver.id}/${verPath}`;
+                                }
+                            }
+
+                        </script>
+
                         {{#if search_enabled}}
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
