@@ -1,6 +1,8 @@
-#[contract]
-mod Contract {
+#[starknet::contract]
+mod contract {
+    use starknet::ContractAddress;
     //ANCHOR: here
+    #[storage]
     struct Storage {
         allowances: LegacyMap::<(ContractAddress, ContractAddress), u256>
     }

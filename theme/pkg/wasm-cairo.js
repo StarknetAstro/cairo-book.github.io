@@ -97,7 +97,7 @@ let wasm_bindgen;
         let deferred2_1;
         try {
             const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-            const ptr0 = passStringToWasm0(s, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+            const ptr0 = passStringToWasm0(s, wasm.__wbindgen_export_0, wasm.__wbindgen_export_1);
             const len0 = WASM_VECTOR_LEN;
             wasm.greet(retptr, ptr0, len0);
             var r0 = getInt32Memory0()[retptr / 4 + 0];
@@ -107,7 +107,7 @@ let wasm_bindgen;
             return getStringFromWasm0(r0, r1);
         } finally {
             wasm.__wbindgen_add_to_stack_pointer(16);
-            wasm.__wbindgen_free(deferred2_0, deferred2_1, 1);
+            wasm.__wbindgen_export_2(deferred2_0, deferred2_1, 1);
         }
     };
 
@@ -140,7 +140,7 @@ __exports.compileCairoProgram = function(cairo_program, replace_ids) {
     let deferred3_1;
     try {
         const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-        const ptr0 = passStringToWasm0(cairo_program, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const ptr0 = passStringToWasm0(cairo_program, wasm.__wbindgen_export_0, wasm.__wbindgen_export_1);
         const len0 = WASM_VECTOR_LEN;
         wasm.compileCairoProgram(retptr, ptr0, len0, replace_ids);
         var r0 = getInt32Memory0()[retptr / 4 + 0];
@@ -158,7 +158,7 @@ __exports.compileCairoProgram = function(cairo_program, replace_ids) {
         return getStringFromWasm0(ptr2, len2);
     } finally {
         wasm.__wbindgen_add_to_stack_pointer(16);
-        wasm.__wbindgen_free(deferred3_0, deferred3_1, 1);
+        wasm.__wbindgen_export_2(deferred3_0, deferred3_1, 1);
     }
 };
 
@@ -177,7 +177,7 @@ __exports.runCairoProgram = function(cairo_program, available_gas, print_full_me
     let deferred3_1;
     try {
         const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
-        const ptr0 = passStringToWasm0(cairo_program, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const ptr0 = passStringToWasm0(cairo_program, wasm.__wbindgen_export_0, wasm.__wbindgen_export_1);
         const len0 = WASM_VECTOR_LEN;
         wasm.runCairoProgram(retptr, ptr0, len0, !isLikeNone(available_gas), isLikeNone(available_gas) ? 0 : available_gas, print_full_memory, use_dbg_print_hint);
         var r0 = getInt32Memory0()[retptr / 4 + 0];
@@ -195,7 +195,39 @@ __exports.runCairoProgram = function(cairo_program, available_gas, print_full_me
         return getStringFromWasm0(ptr2, len2);
     } finally {
         wasm.__wbindgen_add_to_stack_pointer(16);
-        wasm.__wbindgen_free(deferred3_0, deferred3_1, 1);
+        wasm.__wbindgen_export_2(deferred3_0, deferred3_1, 1);
+    }
+};
+
+/**
+* @param {string} starknet_contract
+* @param {boolean} replace_ids
+* @returns {string}
+*/
+__exports.compileStarknetContract = function(starknet_contract, replace_ids) {
+    let deferred3_0;
+    let deferred3_1;
+    try {
+        const retptr = wasm.__wbindgen_add_to_stack_pointer(-16);
+        const ptr0 = passStringToWasm0(starknet_contract, wasm.__wbindgen_export_0, wasm.__wbindgen_export_1);
+        const len0 = WASM_VECTOR_LEN;
+        wasm.compileStarknetContract(retptr, ptr0, len0, replace_ids);
+        var r0 = getInt32Memory0()[retptr / 4 + 0];
+        var r1 = getInt32Memory0()[retptr / 4 + 1];
+        var r2 = getInt32Memory0()[retptr / 4 + 2];
+        var r3 = getInt32Memory0()[retptr / 4 + 3];
+        var ptr2 = r0;
+        var len2 = r1;
+        if (r3) {
+            ptr2 = 0; len2 = 0;
+            throw takeObject(r2);
+        }
+        deferred3_0 = ptr2;
+        deferred3_1 = len2;
+        return getStringFromWasm0(ptr2, len2);
+    } finally {
+        wasm.__wbindgen_add_to_stack_pointer(16);
+        wasm.__wbindgen_export_2(deferred3_0, deferred3_1, 1);
     }
 };
 
@@ -233,7 +265,7 @@ async function __wbg_load(module, imports) {
 function __wbg_get_imports() {
     const imports = {};
     imports.wbg = {};
-    imports.wbg.__wbg_log_5e41872ca2982e37 = function(arg0, arg1) {
+    imports.wbg.__wbg_log_65d0b624a75fcb22 = function(arg0, arg1) {
         console.log(getStringFromWasm0(arg0, arg1));
     };
 
