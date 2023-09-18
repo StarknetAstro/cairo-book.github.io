@@ -7,13 +7,13 @@ runs:
   steps:
     # The --locked flag is important for reproducible builds.
     - name: Install mdbook
-      run: cargo install mdbook --locked --version 0.4.28
+      run: cargo install mdbook --locked --version 0.4.31
       shell: bash
 
     - name: Install mdbook-i18n-helpers
       run: cargo install mdbook-i18n-helpers --locked --version 0.1.0
       shell: bash
 
-    - name: Install cairo programs verifier
+    - name: Install mdbook-cairo preprocessor
       run: cargo install --path mdbook-cairo --locked
       shell: bash

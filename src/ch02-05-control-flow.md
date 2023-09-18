@@ -6,20 +6,10 @@ The ability to run some code depending on whether a condition is true and to run
 
 An if expression allows you to branch your code depending on conditions. You provide a condition and then state, “If this condition is met, run this block of code. If the condition is not met, do not run this block of code.”
 
-<span class="filename">Filename: main.cairo</span>
+<span class="filename">Filename: src/lib.cairo</span>
 
 ```rust
-use debug::PrintTrait;
-
-fn main() {
-    let number = 3;
-
-    if number == 5 {
-        'condition was true'.print();
-    } else {
-        'condition was false'.print();
-    }
-}
+{{#include ../listings/ch02-common-programming-concepts/no_listing_24_if/src/lib.cairo}}
 ```
 
 All `if` expressions start with the keyword `if`, followed by a condition. In this case, the condition checks whether or not the variable `number` has a value equal to 5. We place the block of code to execute if the condition is `true` immediately after the condition inside curly brackets.
@@ -28,25 +18,25 @@ Optionally, we can also include an `else` expression, which we chose to do here,
 
 Try running this code; you should see the following output:
 
-```console
+```shell
 $ cairo-run main.cairo
 [DEBUG]	condition was false
 ```
 
 Let’s try changing the value of `number` to a value that makes the condition `true` to see what happens:
 
-```rust
+```rust, noplayground
     let number = 5;
 ```
 
-```console
+```shell
 $ cairo-run main.cairo
 condition was true
 ```
 
 It’s also worth noting that the condition in this code must be a bool. If the condition isn’t a bool, we’ll get an error.
 
-```console
+```shell
 $ cairo-run main.cairo
 thread 'main' panicked at 'Failed to specialize: `enum_match<felt252>`. Error: Could not specialize libfunc `enum_match` with generic_args: [Type(ConcreteTypeId { id: 1, debug_name: None })]. Error: Provided generic argument is unsupported.', crates/cairo-lang-sierra-generator/src/utils.rs:256:9
 ```
@@ -55,29 +45,15 @@ thread 'main' panicked at 'Failed to specialize: `enum_match<felt252>`. Error: C
 
 You can use multiple conditions by combining if and else in an else if expression. For example:
 
-<span class="filename">Filename: main.cairo</span>
+<span class="filename">Filename: src/lib.cairo</span>
 
-```rust,ignore_format
-use debug::PrintTrait;
-
-fn main() {
-    let number = 3;
-
-    if number == 12 {
-        'number is 12'.print();
-    } else if number == 3 {
-        'number is 3'.print();
-    } else if number - 2 == 1 {
-        'number minus 2 is 1'.print();
-    } else {
-        'number not found'.print();
-    }
-}
+```rust
+{{#include ../listings/ch02-common-programming-concepts/no_listing_25_else_if/src/lib.cairo}}
 ```
 
 This program has four possible paths it can take. After running it, you should see the following output:
 
-```console
+```shell
 [DEBUG]	number is 3
 ```
 
@@ -87,26 +63,13 @@ When this program executes, it checks each `if` expression in turn and executes 
 
 Because if is an expression, we can use it on the right side of a let statement to assign the outcome to a variable.
 
-<span class="filename">Filename: main.cairo</span>
+<span class="filename">Filename: src/lib.cairo</span>
 
 ```rust
-use debug::PrintTrait;
-
-fn main() {
-    let condition = true;
-    let number = if condition {
-        5
-    } else {
-        6
-    };
-
-    if number == 5 {
-        'condition was true'.print();
-    }
-}
+{{#include ../listings/ch02-common-programming-concepts/no_listing_26_if_let/src/lib.cairo}}
 ```
 
-```console
+```shell
 $ cairo-run main.cairo
 [DEBUG]	condition was true
 ```
@@ -129,17 +92,8 @@ like this:
 
 <span class="filename">Filename: src/lib.cairo</span>
 
-```rust,ignore,does_not_compile
-use debug::PrintTrait;
-fn main() {
-    let mut i: usize = 0;
-    loop {
-        if i > 10 {
-            break ();
-        }
-        'again!'.print();
-    }
-}
+```rust
+{{#include ../listings/ch02-common-programming-concepts/no_listing_27_loop/src/lib.cairo}}
 ```
 
 When we run this program, we’ll see `again!` printed over and over continuously
@@ -149,8 +103,8 @@ the stop condition might never be reached, resulting in an infinite loop.
 Most terminals support the keyboard shortcut <span class="keystroke">ctrl-c</span> to interrupt a program that is
 stuck in a continual loop. Give it a try:
 
-```console
-❯ cairo-run src/lib.cairo --available-gas=20000000
+```shell
+$ scarb cairo-run --available-gas=20000000
 [DEBUG]	again                          	(raw: 418346264942)
 
 [DEBUG]	again                          	(raw: 418346264942)
@@ -171,17 +125,7 @@ To break out of a loop, you can place the `break` statement within the loop to t
 executing the loop. Let's fix the infinite loop by adding a making the stop condition `i > 10` reachable.
 
 ```rust
-use debug::PrintTrait;
-fn main() {
-    let mut i: usize = 0;
-    loop {
-        if i > 10 {
-            break ();
-        }
-        'again'.print();
-        i += 1;
-    }
-}
+{{#include ../listings/ch02-common-programming-concepts/no_listing_28_loop_break/src/lib.cairo}}
 ```
 
 The `continue` keyword tells the program to go to the next iteration of the loop and to skip the rest of the code in this iteration. Let's add a `continue` statement to our loop to skip the `print` statement when `i` is equal to `5`.
@@ -192,7 +136,7 @@ fn main() {
     let mut i: usize = 0;
     loop {
         if i > 10 {
-            break ();
+            break;
         }
         if i == 5 {
             i += 1;
@@ -216,20 +160,7 @@ use to stop the loop; that value will be returned out of the loop so you can
 use it, as shown here:
 
 ```rust
-use debug::PrintTrait;
-fn main() {
-    let mut counter = 0;
-
-    let result = loop {
-        if counter == 10 {
-            break counter * 2;
-        }
-        counter += 1;
-    };
-
-    'The result is '.print();
-    result.print();
-}
+{{#include ../listings/ch02-common-programming-concepts/no_listing_29_loop_return_values/src/lib.cairo}}
 ```
 
 Before the loop, we declare a variable named `counter` and initialize it to
@@ -238,3 +169,14 @@ the loop. On every iteration of the loop, we check whether the `counter` is equa
 When the condition is met, we use the `break` keyword with the value `counter * 2`. After the loop, we use a
 semicolon to end the statement that assigns the value to `result`. Finally, we
 print the value in `result`, which in this case is `20`.
+
+## Summary
+
+You made it! This was a sizable chapter: you learned about variables, data types, functions, comments,
+`if` expressions and loops! To practice with the concepts discussed in this chapter,
+try building programs to do the following:
+
+- Generate the _n_-th Fibonacci number.
+- Compute the factorial of a number _n_.
+
+Now, we’ll review the common collection types in Cairo in the next chapter.

@@ -14,31 +14,8 @@ To illustrate this notion let's take back our example Listing 6-1 for the restau
 
 <span class="filename">Filename: src/lib.cairo</span>
 
-```rust
-mod front_of_house {
-    mod hosting {
-        fn add_to_waitlist() {}
-
-        fn seat_at_table() {}
-    }
-
-    mod serving {
-        fn take_order() {}
-
-        fn serve_order() {}
-
-        fn take_payment() {}
-    }
-}
-
-
-pub fn eat_at_restaurant() {
-    // Absolute path
-    restaurant::front_of_house::hosting::add_to_waitlist(); // ✅ Compiles
-
-    // Relative path
-    front_of_house::hosting::add_to_waitlist(); // ✅ Compiles
-}
+```rust,noplayground
+{{#include ../listings/ch06-managing-cairo-projects-with-packages-crates-and-modules/listing_06_03/src/lib.cairo}}
 ```
 
 <span class="caption">Listing 6-3: Calling the `add_to_waitlist` function using absolute and relative paths</span>
@@ -61,17 +38,8 @@ definition code separately from or together with the code that uses the item.
 
 <span class="filename">Filename: src/lib.cairo</span>
 
-```rust
-fn deliver_order() {}
-
-mod back_of_house {
-    fn fix_incorrect_order() {
-        cook_order();
-        super::deliver_order();
-    }
-
-    fn cook_order() {}
-}
+```rust,noplayground
+{{#include ../listings/ch06-managing-cairo-projects-with-packages-crates-and-modules/listing_06_04/src/lib.cairo}}
 ```
 
 <span class="caption">Listing 6-4: Calling a function using a relative path starting with super</span>

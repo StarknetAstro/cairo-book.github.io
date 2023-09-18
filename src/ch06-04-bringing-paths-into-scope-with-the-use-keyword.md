@@ -10,17 +10,7 @@ scope of the `eat_at_restaurant` function so we only have to specify
 <span class="filename">Filename: src/lib.cairo</span>
 
 ```rust
-mod front_of_house {
-    mod hosting {
-        fn add_to_waitlist() {}
-    }
-}
-
-use restaurant::front_of_house::hosting;
-
-fn eat_at_restaurant() {
-    hosting::add_to_waitlist(); // ✅ Shorter path
-}
+{{#include ../listings/ch06-managing-cairo-projects-with-packages-crates-and-modules/listing_06_05/src/lib.cairo}}
 ```
 
 <span class="caption">Listing 6-5: Bringing a module into scope with
@@ -35,19 +25,7 @@ statement, so the function body won’t compile:
 <span class="filename">Filename: src/lib.cairo</span>
 
 ```rust
-mod front_of_house {
-    mod hosting {
-        fn add_to_waitlist() {}
-    }
-}
-
-use restaurant::front_of_house::hosting;
-
-mod customer {
-    fn eat_at_restaurant() {
-        hosting::add_to_waitlist();
-    }
-}
+{{#include ../listings/ch06-managing-cairo-projects-with-packages-crates-and-modules/listing_06_06/src/lib.cairo}}
 ```
 
 <span class="caption">Listing 6-6: A `use` statement only applies in the scope
@@ -56,7 +34,7 @@ it’s in</span>
 The compiler error shows that the shortcut no longer applies within the
 `customer` module:
 
-```console
+```shell
 ❯ scarb build
 error: Identifier not found.
  --> lib.cairo:11:9
@@ -74,18 +52,7 @@ the `add_to_waitlist` function to achieve the same result, as in Listing 6-7.
 <span class="filename">Filename: src/lib.cairo</span>
 
 ```rust
-mod front_of_house {
-    pub mod hosting {
-        pub fn add_to_waitlist() {}
-    }
-}
-
-use restaurant::front_of_house::hosting::add_to_waitlist;
-
-pub fn eat_at_restaurant() {
-    add_to_waitlist();
-}
-
+{{#include ../listings/ch06-managing-cairo-projects-with-packages-crates-and-modules/listing_06_07/src/lib.cairo}}
 ```
 
 <span class="caption">Listing 6-7: Bringing the `add_to_waitlist` function
@@ -104,12 +71,7 @@ it’s idiomatic to specify the full path. Listing 6-8 shows the idiomatic way
 to bring the core library’s `ArrayTrait` trait into the scope.
 
 ```rust
-use array::ArrayTrait;
-
-fn main() {
-    let mut arr = ArrayTrait::new();
-    arr.append(1);
-}
+{{#include ../listings/ch06-managing-cairo-projects-with-packages-crates-and-modules/listing_06_08/src/lib.cairo}}
 ```
 
 <span class="caption">Listing 6-8: Bringing `ArrayTrait` into scope in an
@@ -131,18 +93,34 @@ local name, or _alias_, for the type. Listing 6-9 shows how you can rename an im
 <span class="filename">Filename: src/lib.cairo</span>
 
 ```rust
-use array::ArrayTrait as Arr;
-
-fn main() {
-    let mut arr = Arr::new(); // ArrayTrait was renamed to Arr
-    arr.append(1);
-}
+{{#include ../listings/ch06-managing-cairo-projects-with-packages-crates-and-modules/listing_06_09/src/lib.cairo}}
 ```
 
 <span class="caption">Listing 6-9: Renaming a trait when it’s brought into
 scope with the `as` keyword</span>
 
 Here, we brought `ArrayTrait` into scope with the alias `Arr`. We can now access the trait's methods with the `Arr` identifier.
+
+### Importing multiple items from the same module
+
+When you want to import multiple items (like functions, structs or enums)
+from the same module in Cairo, you can use curly braces `{}` to list all of
+the items that you want to import. This helps to keep your code clean and easy
+to read by avoiding a long list of individual use statements.
+
+The general syntax for importing multiple items from the same module is:
+
+```rust
+use module::{item1, item2, item3};
+```
+
+Here is an example where we import three structures from the same module:
+
+```rust
+{{#include ../listings/ch06-managing-cairo-projects-with-packages-crates-and-modules/listing_06_10/src/lib.cairo}}
+```
+
+<span class="caption">Listing 6-10: Importing multiple items from the same module</span>
 
 ## Re-exporting Names in Module Files
 
@@ -155,21 +133,11 @@ For example, let's re-export the `add_to_waitlist` function in the restaurant ex
 
 <span class="filename">Filename: src/lib.cairo</span>
 
-```rs
-mod front_of_house {
-    mod hosting {
-        fn add_to_waitlist() {}
-    }
-}
-
-use restaurant::front_of_house::hosting;
-
-fn eat_at_restaurant() {
-    hosting::add_to_waitlist();
-}
+```rust
+{{#include ../listings/ch06-managing-cairo-projects-with-packages-crates-and-modules/listing_06_11/src/lib.cairo}}
 ```
 
-<span class="caption">Listing 6-10: Making a name available for any code to use
+<span class="caption">Listing 6-11: Making a name available for any code to use
 from a new scope with `pub use`</span>
 
 Before this change, external code would have to call the `add_to_waitlist`
@@ -191,4 +159,4 @@ the library and programmers calling the library.
 
 You might need to use external packages to leverage the functionality provided by the community. To use an external package in your project with Scarb, follow these steps:
 
-> The dependencies system is still a work in progress. You can check the official [documentation](https://docs.swmansion.com/scarb/docs/guides/dependencies).
+> The dependencies system is still a work in progress. You can check the official [documentation](https://docs.swmansion.com/scarb/docs/guides/dependencies.html).

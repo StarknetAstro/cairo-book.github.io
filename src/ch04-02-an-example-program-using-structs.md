@@ -7,25 +7,15 @@ Let’s make a new project with Scarb called _rectangles_ that will take the wid
 <span class="filename">Filename: src/lib.cairo</span>
 
 ```rust
-use debug::PrintTrait;
-fn main() {
-    let width1 = 30_u64;
-    let height1 = 10_u64;
-    let area = area(width1, height1);
-    area.print();
-}
-
-fn area(width: u64, height: u64) -> u64 {
-    width * height
-}
+{{#include ../listings/ch04-using-structs-to-structure-related-data/listing_04_06_no_struct/src/lib.cairo}}
 ```
 
 <span class="caption">Listing 4-6: Calculating the area of a rectangle specified by separate width and height variables</span>
 
-Now run the program with `cairo-run src/lib.cairo`:
+Now run the program with `scarb cairo-run`:
 
 ```bash
-$ cairo-run src/lib.cairo
+$ scarb cairo-run
 [DEBUG] ,                               (raw: 300)
 
 Run completed successfully, returning []
@@ -35,8 +25,8 @@ This code succeeds in figuring out the area of the rectangle by calling the `are
 
 The issue with this code is evident in the signature of `area`:
 
-```rust
-fn area(width: u64, height: u64) -> u64 {
+```rust,noplayground
+{{#include ../listings/ch04-using-structs-to-structure-related-data/listing_04_06_no_struct/src/lib.cairo:9}}
 ```
 
 The `area` function is supposed to calculate the area of one rectangle, but the function we wrote has two parameters, and it’s not clear anywhere in our program that the parameters are related. It would be more readable and more manageable to group width and height together. We’ve already discussed one way we might do that in [Chapter 3](ch02-02-data-types.html#the-tuple-type): using tuples.
@@ -48,17 +38,7 @@ Listing 4-7 shows another version of our program that uses tuples.
 <span class="filename">Filename: src/lib.cairo</span>
 
 ```rust
-use debug::PrintTrait;
-fn main() {
-    let rectangle = (30_u64, 10_u64);
-    let area = area(rectangle);
-    area.print(); // print out the area
-}
-
-fn area(dimension: (u64, u64)) -> u64 {
-    let (x, y) = dimension;
-    x * y
-}
+{{#include ../listings/ch04-using-structs-to-structure-related-data/listing_04_07_w_tuples/src/lib.cairo}}
 ```
 
 <span class="caption">Listing 4-7: Specifying the width and height of the rectangle with a tuple</span>
@@ -73,26 +53,8 @@ We use structs to add meaning by labeling the data. We can transform the tuple w
 
 <span class="filename">Filename: src/lib.cairo</span>
 
-```rust,ignore_format
-use debug::PrintTrait;
-
-struct Rectangle {
-    width: u64,
-    height: u64,
-}
-
-fn main() {
-    let rectangle = Rectangle {
-        width: 30_u64,
-        height: 10_u64,
-    };
-    let area = area(rectangle);
-    area.print(); // print out the area
-}
-
-fn area(rectangle: Rectangle) -> u64 {
-    rectangle.width * rectangle.height
-}
+```rust
+{{#include ../listings/ch04-using-structs-to-structure-related-data/listing_04_08_w_structs/src/lib.cairo}}
 ```
 
 <span class="caption">Listing 4-8: Defining a `Rectangle` struct</span>
@@ -105,28 +67,15 @@ It’d be useful to be able to print an instance of `Rectangle` while we’re de
 
 <span class="filename">Filename: src/lib.cairo</span>
 
-```rust,does_not_compile,ignore_format
-use debug::PrintTrait;
-
-struct Rectangle {
-    width: u64,
-    height: u64,
-}
-
-fn main() {
-    let rectangle = Rectangle {
-        width: 30_u64,
-        height: 10_u64,
-    };
-    rectangle.print();
-}
+```rust
+{{#include ../listings/ch04-using-structs-to-structure-related-data/listing_04_10_print_rectangle/src/lib.cairo:0:11}}
 ```
 
 <span class="caption">Listing 4-9: Attempting to print a `Rectangle` instance</span>
 
 When we compile this code, we get an error with this message:
 
-```bash
+```text
 $ cairo-compile src/lib.cairo
 error: Method `print` not found on type "../src::Rectangle". Did you import the correct trait and impl?
  --> lib.cairo:16:15
@@ -141,28 +90,8 @@ To learn more about traits, see [Traits in Cairo](ch07-02-traits-in-cairo.md).
 
 <span class="filename">Filename: src/lib.cairo</span>
 
-```rust,ignore_format
-use debug::PrintTrait;
-
-struct Rectangle {
-    width: u64,
-    height: u64,
-}
-
-fn main() {
-    let rectangle = Rectangle {
-        width: 30_u64,
-        height: 10_u64,
-    };
-    rectangle.print();
-}
-
-impl RectanglePrintImpl of PrintTrait<Rectangle> {
-    fn print(self: Rectangle) {
-        self.width.print();
-        self.height.print();
-    }
-}
+```rust
+{{#rustdoc_include ../listings/ch04-using-structs-to-structure-related-data/listing_04_10_print_rectangle/src/lib.cairo}}
 ```
 
 <span class="caption">Listing 4-10: Implementing the `PrintTrait` trait on `Rectangle`</span>

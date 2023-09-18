@@ -95,12 +95,77 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "julio4",
+      "name": "julio4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30329843?v=4",
+      "profile": "http://julio4.com",
+      "contributions": [
+        "code",
+        "tool"
+      ]
+    },
+    {
+      "login": "hgedia",
+      "name": "Haresh Gedia",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32969555?v=4",
+      "profile": "https://github.com/hgedia",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "Darlington02",
+      "name": "Darlington Nnam",
+      "avatar_url": "https://avatars.githubusercontent.com/u/75126961?v=4",
+      "profile": "http://0xdarlington.disha.page",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "tiagofneto",
+      "name": "Tiago Neto",
+      "avatar_url": "https://avatars.githubusercontent.com/u/46165861?v=4",
+      "profile": "https://github.com/tiagofneto",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "omahs",
+      "name": "omahs",
+      "avatar_url": "https://avatars.githubusercontent.com/u/73983677?v=4",
+      "profile": "https://github.com/omahs",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "shramee",
+      "name": "Shramee Srivastav",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11048263?v=4",
+      "profile": "http://shramee.me",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "dbejarano820",
+      "name": "Daniel Bejarano",
+      "avatar_url": "https://avatars.githubusercontent.com/u/58019353?v=4",
+      "profile": "https://github.com/dbejarano820",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
   "skipCi": true,
   "repoType": "github",
   "repoHost": "https://github.com",
+  "badgeTemplate": "[![All Contributors](https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square)](#contributors)",
   "projectName": "cairo-book.github.io",
   "projectOwner": "cairo-book"
 }

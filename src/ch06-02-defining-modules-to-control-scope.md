@@ -24,14 +24,15 @@ work. You can create a new Scarb project with `scarb new backyard` to follow alo
 
   - Inline, within curly brackets that replace the semicolon following `mod garden;`.
 
-    ```rust
-      // crate root file (lib.cairo)
+    ```rust,noplayground
+      // crate root file (src/lib.cairo)
         mod garden {
         // code defining the garden module goes here
         }
     ```
 
-- In the file _src/garden.cairo_
+  - In the file _src/garden.cairo_
+
 - **Declaring submodules**: In any file other than the crate root, you can
   declare submodules. For example, you might declare `mod vegetables;` in
   _src/garden.cairo_. The compiler will look for the submodule’s code within the
@@ -40,7 +41,7 @@ work. You can create a new Scarb project with `scarb new backyard` to follow alo
   - Inline, directly following `mod vegetables`, within curly brackets instead
     of the semicolon.
 
-    ```rust
+    ```rust,noplayground
     // src/garden.cairo file
     mod vegetables {
         // code defining the vegetables submodule goes here
@@ -65,7 +66,6 @@ crate’s directory, also named `backyard`, contains these files and directories
 ```text
 backyard/
 ├── Scarb.toml
-├── cairo_project.toml
 └── src
     ├── garden
     │   └── vegetables.cairo
@@ -73,47 +73,27 @@ backyard/
     └── lib.cairo
 ```
 
-> Note: You will notice here a `cairo_project.toml` file.
-> This is the configuration file for "vanilla" Cairo projects (i.e. not managed by Scarb),
-> which is required to run the `cairo-run .` command to run the code of the crate.
-> It is required until Scarb implements this feature. The content of the file is:
->
-> ```toml
-> [crate_roots]
-> backyard = "src"
-> ```
->
-> and indicates that the crate named "backyard" is located in the `src` directory.
-
 The crate root file in this case is _src/lib.cairo_, and it contains:
 
 <span class="filename">Filename: src/lib.cairo</span>
 
-```rust,does_not_compile
-use garden::vegetables::Asparagus;
-
-mod garden;
-
-fn main() {
-    let Asparagus = Asparagus {};
-}
-
+```rust
+{{#include ../listings/ch06-managing-cairo-projects-with-packages-crates-and-modules/no_listing_01_lib/src/lib.cairo}}
 ```
 
 The `mod garden;` line tells the compiler to include the code it finds in _src/garden.cairo_, which is:
 
 <span class="filename">Filename: src/garden.cairo</span>
 
-```rust
+```rust,noplayground
 mod vegetables;
 ```
 
 Here, `mod vegetables;` means the code in _src/garden/vegetables.cairo_ is
 included too. That code is:
 
-```rust
-#[derive(Copy,Drop)]
-struct Asparagus{}
+```rust,noplayground
+{{#include ../listings/ch06-managing-cairo-projects-with-packages-crates-and-modules/no_listing_02_garden/src/lib.cairo}}
 ```
 
 The line `use garden::vegetables::Asparagus;` lets us use bring the `Asparagus` type into scope,
@@ -142,22 +122,8 @@ define some modules and function signatures. Here’s the front of house section
 
 <span class="filename">Filename: src/lib.cairo</span>
 
-```rust
-mod front_of_house {
-    mod hosting {
-        fn add_to_waitlist() {}
-
-        fn seat_at_table() {}
-    }
-
-    mod serving {
-        fn take_order() {}
-
-        fn serve_order() {}
-
-        fn take_payment() {}
-    }
-}
+```rust,noplayground
+{{#include ../listings/ch06-managing-cairo-projects-with-packages-crates-and-modules/listing_06_01/src/lib.cairo}}
 ```
 
 <span class="caption">Listing 6-1: A `front_of_house` module containing other
