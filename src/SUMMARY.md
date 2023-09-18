@@ -10,7 +10,6 @@
 
   - [Installation](ch01-01-installation.md)
   - [Hello, World!](ch01-02-hello-world.md)
-  - [Hello, Scarb!](ch01-03-hello-scarb.md)
 
 ## Common Programming Concepts
 
@@ -20,7 +19,12 @@
   - [Functions](ch02-03-functions.md)
   - [Comments](ch02-04-comments.md)
   - [Control Flow](ch02-05-control-flow.md)
-  - [Common Collections](ch02-06-common-collections.md)
+
+## Common Collections
+
+- [Common Collections](ch02-99-00-common-collections.md)
+  - [Arrays](ch02-99-01-arrays.md)
+  - [Dictionaries](ch02-99-02-dictionaries.md)
 
 ## Understanding Ownership
 
@@ -70,16 +74,13 @@
 
 - [Error Handling](ch09-00-error-handling.md)
   - [Unrecoverable Errors with panic](ch09-01-unrecoverable-errors-with-panic.md)
-  - [Recoverable Errors with Result](ch09-02-error-handling.md)
+  - [Recoverable Errors with Result](ch09-02-recoverable-errors.md)
 
 ## Advanced Features
 
 - [Advanced Features](ch10-00-advanced-features.md)
   - [Operator Overloading](ch10-01-operator-overloading.md)
-
-## Dictionaries
-
-- [Dictionaries](ch15-00-dictionaries.md)
+  - [Macros](ch10-02-macros.md)
 
 ## Starknet smart contracts
 
@@ -92,9 +93,13 @@
     - [Contract Functions](./ch99-01-03-02-contract-functions.md)
     - [Contract Events](./ch99-01-03-03-contract-events.md)
     - [Reducing boilerplate](./ch99-01-03-04-reducing-boilerplate.md)
+    - [Optimizing storage costs](./ch99-01-03-05-optimizing-storage.md)
   - [ABIs and Cross-contract Interactions](./ch99-02-00-abis-and-cross-contract-interactions.md)
     - [ABIs and Interfaces](./ch99-02-01-abis-and-interfaces.md)
     - [Contract Dispatchers, Library Dispachers and system calls](./ch99-02-02-contract-dispatcher-library-dispatcher-and-system-calls.md)
+  - [Other examples](./ch99-01-04-00-other-examples.md)
+    - [Deploying and Interacting with a Voting contract](./ch99-01-04-01-voting-contract.md)
+  - [L1 <> L2 Messaging](./ch99-04-00-L1-L2-messaging.md)
   - [Security Considerations](./ch99-03-security-considerations.md)
 
 - [Appendix](appendix-00.md)
@@ -103,3 +108,4 @@
   - [C - Derivable Traits](appendix-03-derivable-traits.md)
   - [D - Useful Development Tools](appendix-04-useful-development-tools.md)
   - [E - Cairo Most Common Types and Traits](appendix-05-most-common-types-and-traits.md)
+  - [F - Installing Cairo binaries](appendix-06-cairo-binaries.md)

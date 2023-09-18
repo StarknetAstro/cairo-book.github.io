@@ -22,15 +22,15 @@ the `calculate_length` function will not mutate the array, and ownership of the 
 
 <span class="filename">Filename: src/lib.cairo</span>
 
-```rust,ignore_format
-{{#include ../listings/ch03-understanding-ownership/no_listing_09_snapshots.cairo}}
+```rust
+{{#include ../listings/ch03-understanding-ownership/no_listing_09_snapshots/src/lib.cairo}}
 ```
 
 > Note: It is only possible to call the `len()` method on an array snapshot because it is defined as such in the `ArrayTrait` trait. If you try to call a method that is not defined for snapshots on a snapshot, you will get a compilation error. However, you can call methods expecting a snapshot on non-snapshot types.
 
 The output of this program is:
 
-```console
+```shell
 [DEBUG]	                               	(raw: 0)
 
 [DEBUG]	                              	(raw: 1)
@@ -44,14 +44,14 @@ that we pass `@arr1` into `calculate_length` and, in its definition, we take `@A
 Let’s take a closer look at the function call here:
 
 ```rust
-{{#rustdoc_include ../listings/ch03-understanding-ownership/no_listing_09_snapshots.cairo:11}}
+{{#rustdoc_include ../listings/ch03-understanding-ownership/no_listing_09_snapshots/src/lib.cairo:11}}
 ```
 
 The `@arr1` syntax lets us create a snapshot of the value in `arr1`. Because a snapshot is an immutable view of a value, the value it points to cannot be modified through the snapshot, and the value it refers to will not be dropped once the snapshot stops being used.
 
 Similarly, the signature of the function uses `@` to indicate that the type of the parameter `arr` is a snapshot. Let’s add some explanatory annotations:
 
-```rust
+```rust, noplayground
 fn calculate_length(
     array_snapshot: @Array<u128>
 ) -> usize { // array_snapshot is a snapshot of an Array
@@ -62,12 +62,16 @@ fn calculate_length(
 
 The scope in which the variable `array_snapshot` is valid is the same as any function parameter’s scope, but the underlying value of the snapshot is not dropped when `array_snapshot` stops being used. When functions have snapshots as parameters instead of the actual values, we won’t need to return the values in order to give back ownership of the original value, because we never had it.
 
-Snapshots can be converted back into regular values using the `desnap` operator `*`, as long as the value type is copyable (which is not the case for Arrays, as they don't implement `Copy`). In the following example, we want to calculate the area of a rectangle, but we don't want to take ownership of the rectangle in the `calculate_area` function, because we might want to use the rectangle again after the function call. Since our function doesn't mutate the rectangle instance, we can pass the snapshot of the rectangle to the function, and then transform the snapshots back into values using the `desnap` operator `*`.
+#### Desnap Operator
 
-The snapshot type is always copyable and droppable, so that you can use it multiple times without worrying about ownership transfers.
+To convert a snapshot back into a regular value, you can use the `desnap` operator `*`, which serves as the opposite of the `@` operator: the snapshot value is copied to a new variable.
+
+It's important to note that during this conversion process, the value it points to is copied into a new variable. This enables multiple uses of the underlying value without concerns about ownership transfers. This also means that the value pointed to by the snapshot must be copyable (which is not the case for Arrays, as they don't implement `Copy`).
+
+In the following example, we want to calculate the area of a rectangle, but we don't want to take ownership of the rectangle in the `calculate_area` function, because we might want to use the rectangle again after the function call. Since our function doesn't mutate the rectangle instance, we can pass the snapshot of the rectangle to the function, and then transform the snapshots back into values using the `desnap` operator `*`.
 
 ```rust
-{{#include ../listings/ch03-understanding-ownership/no_listing_10_desnap.cairo}}
+{{#include ../listings/ch03-understanding-ownership/no_listing_10_desnap/src/lib.cairo}}
 ```
 
 But, what happens if we try to modify something we’re passing as snapshot? Try the code in
@@ -76,14 +80,14 @@ Listing 3-6. Spoiler alert: it doesn’t work!
 <span class="filename">Filename: src/lib.cairo</span>
 
 ```rust,does_not_compile
-{{#include ../listings/ch03-understanding-ownership/listing_03_06.cairo}}
+{{#include ../listings/ch03-understanding-ownership/listing_03_06/src/lib.cairo}}
 ```
 
 <span class="caption">Listing 3-6: Attempting to modify a snapshot value</span>
 
 Here’s the error:
 
-```console
+```shell
 error: Invalid left-hand side of assignment.
  --> ownership.cairo:15:5
     rec.height = rec.width;
@@ -102,7 +106,7 @@ In Cairo, a parameter can be passed as _mutable reference_ using the `ref` modif
 In Listing 3-7, we use a mutable reference to modify the value of the `height` and `width` fields of the `Rectangle` instance in the `flip` function.
 
 ```rust
-{{#include ../listings/ch03-understanding-ownership/listing_03_07.cairo}}
+{{#include ../listings/ch03-understanding-ownership/listing_03_07/src/lib.cairo}}
 ```
 
 <span class="caption">Listing 3-7: Use of a mutable reference to modify a value</span>
@@ -111,7 +115,7 @@ First, we change `rec` to be `mut`. Then we pass a mutable reference of `rec` in
 
 The output of the program is:
 
-```console
+```shell
 [DEBUG]
                                 (raw: 10)
 
